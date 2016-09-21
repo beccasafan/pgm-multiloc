@@ -10,7 +10,7 @@ export interface IHiveOptions {
 export class Hive {
   private options: IHiveOptions;
   private mapObject: google.maps.Polygon;
-  private isActive: boolean;
+  public isActive: boolean;
   private activeListener: google.maps.MapsEventListener;
 
   constructor(options: IHiveOptions) {
@@ -57,5 +57,9 @@ export class Hive {
 
   public removeListener(): void {
     this.activeListener.remove();
+  }
+
+  public getCenter(): Location {
+    return this.options.center;
   }
 }

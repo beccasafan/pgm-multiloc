@@ -61,6 +61,10 @@ export class Beehive {
     });
   }
 
+  public getHives(): Hive[] {
+    return this.hives;
+  }
+
   public reset(dispose: boolean = false): void {
     // cleanup old hives
     for (let i = 0; i < this.hives.length; i++) {

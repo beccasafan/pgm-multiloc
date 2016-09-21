@@ -14,6 +14,10 @@ export class Location {
     this.latLng = new google.maps.LatLng(latitude, longitude);
   }
 
+  public toString(): string {
+    return `${this.latLng.lat()}, ${this.latLng.lng()}`;
+  }
+
   public getLatLng(): google.maps.LatLng {
     return this.latLng;
   }

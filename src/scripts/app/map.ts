@@ -33,11 +33,14 @@ export class Map {
     $('#beehive-control .slider').on('moved.zf.slider', (e) => this.changeSteps(e));
     $('#remove').on('click', () => this.removeActiveHive());
     $('#edit-hives').on('click', () => this.editHives());
+    $('#generate-trigger').on('click', () => this.generateCoordsContent());
   }
 
   public addBeehive(location: Location): void {
     let beehive = new Beehive(<IBeehiveOptions>{ map: this, steps: config.steps, leaps: config.leaps, center: location });
     this.beehives.push(beehive);
+    console.log("showing", $('#generate-trigger'));
+    $('#generate-trigger').show();
   }
 
   public addMapObject(mapObject: google.maps.MVCObject): void {
@@ -67,6 +70,10 @@ export class Map {
       this.beehives.splice(this.beehives.indexOf(this.activeBeehive), 1);
       this.activeBeehive = null;
       $('#remove').hide();
+
+      if (this.beehives.length === 0) {
+        $('#generate-trigger').hide();
+      }
     }
   }
 
@@ -86,5 +93,22 @@ export class Map {
 
   public editHives(): void {
     this.activeBeehive.editHives();
+  }
+
+  private generateCoordsContent(): void {
+    console.log('coords');
+    let coords: string = '';
+    for (let b = 0; b < this.beehives.length; b++) {
+      let hives = this.beehives[b].getHives();
+      for (let h = 0; h < hives.length; h++) {
+        let hive = hives[h];
+        if (hive.isActive) {
+          let center = hive.getCenter().toString();
+          coords += `<br />${center}`;
+        }
+      }
+    }
+    console.log(coords);
+    $('#coords-list').empty().append($('<pre>').html(coords));
   }
 }
