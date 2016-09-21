@@ -82,20 +82,24 @@ export class Beehive {
     this.reset();
 
     let locations: Hive[] = [];
-    let distanceBetweenHiveCenters = ((this.options.steps - 1) * (3 * 70 / 2) + (Math.sqrt(3) * 70 / 2)) * 2;
+    let distanceBetweenHiveCenters = Util.distanceBetweenHiveCenters(this.options.steps);
 
-    let getNextPoint = (p, heading, distance = distanceBetweenHiveCenters) => {
+    let getNextPoint = (p, heading, distance = distanceBetweenHiveCenters, adjust = true) => {
       let nextPoint = google.maps.geometry.spherical.computeOffset(p, distance, heading);
+      if (adjust) {
+        nextPoint = google.maps.geometry.spherical.computeOffset(nextPoint, Util.locationAdjustment, heading + 90);
+      }
       locations.push(new Hive(<IHiveOptions>{ center: new Location(nextPoint.lat(), nextPoint.lng()), steps: this.options.steps, map: this.options.map }));
       return nextPoint;
     };
 
     let point: google.maps.LatLng = this.options.center.getLatLng();
-    point = getNextPoint(point, 0, 0);
+    point = getNextPoint(point, 0, 0, false);
     this.lastHiveCenter = point;
 
     for (let leap = 2; leap <= this.options.leaps; leap++) {
-      point = getNextPoint(this.lastHiveCenter, 0);
+      point = getNextPoint(this.lastHiveCenter, 0, distanceBetweenHiveCenters);
+
       this.lastHiveCenter = point;
 
       for (let se = 1; se < leap; se++) {

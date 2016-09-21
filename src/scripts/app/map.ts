@@ -39,7 +39,6 @@ export class Map {
   public addBeehive(location: Location): void {
     let beehive = new Beehive(<IBeehiveOptions>{ map: this, steps: config.steps, leaps: config.leaps, center: location });
     this.beehives.push(beehive);
-    console.log("showing", $('#generate-trigger'));
     $('#generate-trigger').show();
   }
 
