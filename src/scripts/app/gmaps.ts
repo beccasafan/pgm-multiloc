@@ -32,6 +32,8 @@ export class GMaps {
 
         this.gmap.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('generate-trigger'));
 
+        this.gmap.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('github-buttons'));
+
         let autocomplete = new google.maps.places.Autocomplete(input);
         autocomplete.bindTo('bounds', this.gmap);
 
