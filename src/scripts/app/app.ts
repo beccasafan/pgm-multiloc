@@ -26,6 +26,7 @@ export class Location {
 export class Util {
   private static scanRadius: number = 70;
   public static locationAdjustment: number = Math.sqrt(3) * Util.scanRadius / 2;
+  public static hiveOverlap: number = (Util.scanRadius / 2) - ((Util.scanRadius - Util.locationAdjustment) * 2);
 
   public static getHiveRadius(steps: number): number {
     return ((steps - 1) * Math.sqrt(3) * this.scanRadius) + this.scanRadius;
@@ -36,16 +37,15 @@ export class Util {
   }
 
   public static getBeehiveRadius(leaps: number, steps: number): number {
-    return Math.floor((3 * leaps / 2) - 0.5) * Util.getHiveRadius(steps);
+    return Math.floor((3 * (leaps - 1) / 2) - 0.5) * (Util.getHiveRadius(steps) - Util.hiveOverlap) + Util.getHiveRadius(steps);
   }
 
   public static getLeapsToCoverRadius(radius: number, steps: number): number {
-    return Math.ceil((((radius / Util.getHiveRadius(steps)) + 0.5) * 2 / 3));
+    return Math.ceil((((radius - Util.getHiveRadius(steps)) / (Util.getHiveRadius(steps) - Util.hiveOverlap) + 0.5) * 2 / 3) + 1);
   }
   public static distanceBetweenHiveCenters(steps: number): number {
     let hexInnerRadius = (steps - 1) * (3 * this.scanRadius / 2) + Util.locationAdjustment;
-    let distanceAdjustment = (this.scanRadius / 2) - ((this.scanRadius - Util.locationAdjustment) * 2);
-    return (hexInnerRadius * 2 - distanceAdjustment);
+    return (hexInnerRadius * 2 - Util.hiveOverlap);
   }
 }
 
