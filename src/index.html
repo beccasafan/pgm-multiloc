@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+<head>
+  <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>WebApp</title>
+  <link href="styles/vendor.min.css" rel="stylesheet" lang="styles/css" />
+  <link href="styles/app.min.css" rel="stylesheet" lang="styles/css" />
+</head>
+
+<body>
+  <div id="custom-map-controls">
+    <div class="row">
+      <div class="small-12 columns callout secondary">
+        <p>Click on the map to add a scanning location. Drag and resize to adjust the scan location. Click on a location to activate it to change the step size, toggle the hives to be scanned, or remove it.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div id="place-control" class="small-12 medium-6 columns">
+        <div class="small-12 medium-8 columns">
+          <input id="pac-input" class="controls" type="text" placeholder="Enter a location" />
+        </div>
+      </div>
+
+      <div id="beehive-control" class="small-12 medium-6 columns">
+        <div class="small-7 medium-9 columns">
+          <div class="slider" data-slider>
+            <span class="slider-handle" data-slider-handle role="slider" tabindex="1" aria-controls="steps"></span>
+            <span class="slider-fill" data-slider-fill></span>
+          </div>
+        </div>
+        <div class="small-5 medium-3 columns">
+          <div class="input-group">
+            <input type="number" id="steps" class="controls input-group-field">
+            <div class="input-group-label">Steps</div>
+          </div>
+        </div>
+
+        <div class="small-12 columns text-right">
+          <button id="edit-hives" class="button success" type="button">Edit Hives</button>
+          <button id="remove" class="button alert" type="button">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="map"></div>
+
+  <script src="scripts/vendor.min.js"></script>
+  <script src="scripts/app.min.js"></script>
+  <script>
+      var app = new App.App()
+    </script>
+</body>
+
+</html>

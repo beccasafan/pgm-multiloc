@@ -1,0 +1,69 @@
+{
+  "name": "pgm-multiloc",
+  "version": "0.0.1",
+  "description": "A tool to visualize coverage of multiple instances of PokemonGo-Map",
+  "keywords": [
+    "pogomap"
+  ],
+  "homepage": "https://github.com/beccasafan/pgm-multiloc",
+  "bugs": "https://github.com/beccasafan/pgm-multiloc/issues",
+  "license": "MIT",
+  "author": "beccasafan",
+  "main": "gulpfile.js",
+  "repository": "https://github.com/beccasafan/pgm-multiloc",
+  "scripts": {
+    "postinstall": "npm run typings install && npm run build",
+    "build": "gulp default",
+    "typings": "typings",
+    "gulp": "gulp"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "~6.14.0",
+    "babelify": "~7.3.0",
+    "browserify": "~13.1.0",
+    "browserify-shim": "~3.8.12",
+    "eslint": "~3.5.0",
+    "eslint-config-standard": "~6.0.0",
+    "eslint-plugin-promise": "~2.0.1",
+    "eslint-plugin-standard": "~2.0.0",
+    "foundation-sites": "~6.2.3",
+    "gulp": "~3.9.1",
+    "gulp-concat": "~2.6.0",
+    "gulp-htmlmin": "~2.0.0",
+    "gulp-plumber": "~1.1.0",
+    "gulp-rename": "~1.2.2",
+    "gulp-sass": "~2.3.2",
+    "gulp-sourcemaps": "~1.6.0",
+    "gulp-typings": "~2.0.4",
+    "gulp-uglify": "~2.0.0",
+    "gutil": "~1.6.4",
+    "jquery": "~3.1.0",
+    "load-google-maps-api": "~0.0.2",
+    "tsify": "~1.0.6",
+    "tslint": "~3.15.1",
+    "typescript": "~1.8.10",
+    "vinyl-buffer": "~1.0.0",
+    "vinyl-source-stream": "~1.1.0",
+    "vinyl-transform": "~1.0.0",
+    "watchify": "~3.7.0"
+  },
+  "browser": {
+    "jquery-migrate": "./src/scripts/vendor/jquery.migrate.js",
+    "jquery-steps": "./node_modules/jquery-steps/build/jquery.steps.min.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "foundation-sites": {
+      "depends": "jquery:jQuery"
+    },
+    "jquery-migrate": {
+      "depends": "jquery:jQuery"
+    },
+    "load-google-maps-api": "loadGoogleMapsApi"
+  }
+}
