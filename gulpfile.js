@@ -157,4 +157,5 @@ gulp.task('html-watch', ['html'], function () {
   gulp.watch(`${config.src.html}*.html`, [ 'html' ])
 })
 
-gulp.task('default', ['styles/lib-watch', 'styles-watch', 'scripts/lib-watch', 'scripts-watch', 'html-watch'])
+gulp.task('default', ['styles/lib', 'styles', 'scripts/lib', 'scripts', 'html'])
+gulp.task('watch', ['styles/lib-watch', 'styles-watch', 'scripts/lib-watch', 'scripts-watch', 'html-watch'])
