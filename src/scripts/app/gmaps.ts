@@ -10,13 +10,17 @@ export class GMaps {
     private gmap: google.maps.Map;
 
     constructor() {
+        this.map = new Map();
         loadGoogleMapsApi({
             key: config.googleMapsKey,
             libraries: ['places', 'geometry']
         }).then((googleMaps) => {
             this.initMap();
-            this.map = new Map(<IMapOptions>{ gmap: this.gmap });
         });
+    }
+
+    public getMap(): Map {
+        return this.map;
     }
 
     private initMap(): void {
@@ -49,9 +53,8 @@ export class GMaps {
             this.map.addBeehive(new Location(event.latLng.lat(), event.latLng.lng()));
         });
 
-
         google.maps.event.addListenerOnce(this.gmap, 'idle', () => {
-            this.map.handleCustomControls();
+            this.map.initMap(<IMapOptions>{ gmap: this.gmap });
         });
     }
 }

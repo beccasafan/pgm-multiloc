@@ -56,12 +56,14 @@
     </div>
   </div>
 
-  <div id="generate-trigger" class="button success" data-open="generate-ui">Generate Launch Script</div>
+<div id="viewModel">
+  <div id="generate-trigger" class="button success" data-open="generate-ui">Generate Launch Script (<span data-bind="text: activeHives().length"></span>)</div>
 
   <div id="generate-ui" class="reveal" data-reveal>
-    <div id="coords-list"></div>
+    <div id="coords-list" data-bind="foreach: activeHives()">
+      <div data-bind="text: getCenter().toString()"></div></div>
   </div>
-
+</div>
   <div id="github-buttons">
     <a class="github-button" href="https://github.com/beccasafan/pgm-multiloc" data-icon="octicon-star" data-style="mega" data-count-href="/beccasafan/pgm-multiloc/stargazers" data-count-api="/repos/beccasafan/pgm-multiloc#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star beccasafan/pgm-multiloc on GitHub">Star</a>
 

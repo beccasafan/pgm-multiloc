@@ -50,11 +50,9 @@ export class Util {
 }
 
 export class App {
-  private map: Map;
 
   constructor() {
     let gmaps = new GMaps();
-
     $(document).foundation();
   }
 }

@@ -3,6 +3,9 @@ import {Util, Location} from './app.ts';
 import {Map} from './map.ts';
 import {IHiveOptions, Hive} from './hive.ts';
 
+import * as ko from 'knockout';
+import * as _ from 'lodash';
+
 export interface IBeehiveOptions {
   map: Map;
   center: Location;
@@ -12,17 +15,20 @@ export interface IBeehiveOptions {
 export class Beehive {
   private options: IBeehiveOptions;
   private lastHiveCenter: google.maps.LatLng;
-  private hives: Hive[];
+  private hives: KnockoutObservableArray<Hive>;
   private mapObject: google.maps.Circle;
   private isActive: boolean;
   private isEditingHives: boolean;
   private coveringRadius: number;
+  public activeHives: KnockoutComputed<Hive[]>;
 
   constructor (options: IBeehiveOptions) {
     this.options = options;
-    this.hives = [];
+    this.hives = ko.observableArray([]);
     this.isEditingHives = false;
     this.coveringRadius = Util.getBeehiveRadius(config.leaps, config.steps);
+
+    this.activeHives = ko.computed(() => this.getActiveHives(), this, { deferEvaluation: true });
 
     this.mapObject = new google.maps.Circle({
       radius: this.coveringRadius,
@@ -62,16 +68,17 @@ export class Beehive {
   }
 
   public getHives(): Hive[] {
-    return this.hives;
+    console.log(`getting hives for ${this.options.center.toString()}`);
+    return this.hives();
   }
 
   public reset(dispose: boolean = false): void {
     // cleanup old hives
-    for (let i = 0; i < this.hives.length; i++) {
-      this.hives[i].reset();
+    for (let i = 0; i < this.hives().length; i++) {
+      this.hives()[i].reset();
     }
 
-    this.hives = [];
+    this.hives([]);
 
     if (dispose) {
       this.mapObject = this.options.map.removeMapObject(this.mapObject) as google.maps.Circle;
@@ -127,8 +134,8 @@ export class Beehive {
       }
     }
 
-    this.hives = locations;
-    return this.hives;
+    this.hives(locations);
+    return this.hives();
   }
 
   public resize(steps: number): void {
@@ -152,11 +159,15 @@ export class Beehive {
   public editHives(): void {
     this.isEditingHives = !this.isEditingHives;
 
-    for (let i = 0; i < this.hives.length; i++) {
-      this.isEditingHives ? this.hives[i].addListener() : this.hives[i].removeListener();
+    for (let i = 0; i < this.hives().length; i++) {
+      this.isEditingHives ? this.hives()[i].addListener() : this.hives()[i].removeListener();
     }
 
     this.mapObject.set('zIndex', this.isEditingHives ? 1 : 3);
     this.mapObject.set('fillOpacity', this.isEditingHives ? 0 : 0.3);
+  }
+
+  private getActiveHives(): Hive[] {
+    return _.filter(this.hives(), (h) => h.isActive());
   }
 }

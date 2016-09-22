@@ -38,7 +38,9 @@
     "gulp-uglify": "~2.0.0",
     "gutil": "~1.6.4",
     "jquery": "~3.1.0",
+    "knockout": "~3.4.0",
     "load-google-maps-api": "~0.0.2",
+    "lodash": "~4.16.1",
     "tsify": "~1.0.6",
     "tslint": "~3.15.1",
     "typescript": "~1.8.10",
@@ -65,6 +67,8 @@
     "jquery-migrate": {
       "depends": "jquery:jQuery"
     },
-    "load-google-maps-api": "loadGoogleMapsApi"
+    "load-google-maps-api": "loadGoogleMapsApi",
+    "knockout": "ko",
+    "lodash": "_"
   }
 }

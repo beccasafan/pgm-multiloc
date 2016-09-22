@@ -1,6 +1,8 @@
 import {Util, Location} from './app.ts';
 import {Map} from './map.ts';
 
+import * as ko from 'knockout';
+
 export interface IHiveOptions {
   map: Map;
   center: Location;
@@ -10,11 +12,12 @@ export interface IHiveOptions {
 export class Hive {
   private options: IHiveOptions;
   private mapObject: google.maps.Polygon;
-  public isActive: boolean;
+  public isActive: KnockoutObservable<boolean>;
   private activeListener: google.maps.MapsEventListener;
 
   constructor(options: IHiveOptions) {
     this.options = options;
+    this.isActive = ko.observable(false);
 
     let center = this.options.center.getLatLng();
     let radius = Util.getHiveRadius(this.options.steps);
@@ -47,8 +50,8 @@ export class Hive {
   }
 
   public toggleActive(): void {
-    this.isActive = !this.isActive;
-    this.mapObject.set('fillColor', this.isActive ? '#0F0' : '#F00');
+    this.isActive(!this.isActive());
+    this.mapObject.set('fillColor', this.isActive() ? '#0F0' : '#F00');
   }
 
   public addListener(): void {
