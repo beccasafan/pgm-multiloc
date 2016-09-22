@@ -15,6 +15,10 @@ export class Hive {
   public isActive: KnockoutObservable<boolean>;
   private activeListener: google.maps.MapsEventListener;
 
+  get steps(): number {
+    return this.options.steps;
+  }
+
   constructor(options: IHiveOptions) {
     this.options = options;
     this.isActive = ko.observable(false);

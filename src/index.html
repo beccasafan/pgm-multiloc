@@ -61,7 +61,10 @@
 
   <div id="generate-ui" class="reveal" data-reveal>
     <div id="coords-list" data-bind="foreach: activeHives()">
-      <div data-bind="text: getCenter().toString()"></div></div>
+      <div >
+        -l "<span data-bind="text: getCenter().toString()"></span>" -st <span data-bind="text: steps"></span>
+      </div>
+    </div>
   </div>
 </div>
   <div id="github-buttons">
