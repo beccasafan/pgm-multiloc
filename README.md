@@ -12,5 +12,5 @@ A tool to visualize coverage of multiple instances of PokemonGo-Map
 - Open `dist\index.html` in your browser.
 
 ### Developing
-- Run `npm run build`.
+- Run `npm run watch`.
 - Changes will be watched by gulp and rebuilt as you save changes.
