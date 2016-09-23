@@ -1,4 +1,4 @@
-import config from '../config.ts';
+import {config} from '../config.ts';
 import {Util, Location} from './app.ts';
 import {Map} from './map.ts';
 import {IHiveOptions, Hive} from './hive.ts';

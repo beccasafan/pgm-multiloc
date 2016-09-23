@@ -1,11 +1,12 @@
 import * as $ from 'jquery';
 import 'jquery-migrate';
 import 'foundation-sites';
+import * as _ from 'lodash';
 
 import {IMapOptions, Map} from './map.ts';
 import {GMaps} from './gmaps.ts';
 
-import config from '../config.ts';
+import {config} from '../config.ts';
 
 export class Location {
   private latLng: google.maps.LatLng;
@@ -54,5 +55,35 @@ export class App {
   constructor() {
     let gmaps = new GMaps();
     $(document).foundation();
+
+    Foundation.Abide['defaults'].validators['accountColumns'] = ($el, required, parent) => {
+      let accountText = $('#accounts').val();
+      if (!required) return true;
+      if (required && _.isEmpty(accountText)) {
+        return false;
+      }
+
+      let accountColumns: Number = Number($('#accountColumns').val().split(',').length);
+      let accounts: string[] = accountText.split('\n');
+
+      let anyWrong = _.some(accounts, (a) => {
+        let columns: Number = a.split(',').length;
+        return accountColumns !== columns;
+      });
+
+      return !anyWrong;
+    };
+
+    Foundation.Abide['defaults'].validators['enoughAccounts'] = ($el, required, parent) => {
+      let requiredWorkers = Number($('#workers').val()) * Number($('#hives').val());
+      let accountText = $('#accounts').val();
+      if (_.isEmpty(accountText)) {
+        return false;
+      }
+
+      let accounts = accountText.split('\n').length;
+
+      return accounts >= requiredWorkers;
+    };
   }
 }

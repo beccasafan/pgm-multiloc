@@ -1,4 +1,4 @@
-import config from '../config.ts';
+import {config} from '../config.ts';
 import * as $ from 'jquery';
 import loadGoogleMapsApi from 'load-google-maps-api';
 import {Location} from './app.ts';

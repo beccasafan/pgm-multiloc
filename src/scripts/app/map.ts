@@ -1,8 +1,8 @@
-import config from '../config.ts';
+import {config} from '../config.ts';
 import {Util, Location} from './app.ts';
 import {IBeehiveOptions, Beehive} from './beehive.ts';
 import * as $ from 'jquery';
-import {ViewModel} from './ViewModel.ts';
+import {ViewModel} from './viewModel.ts';
 import {Hive} from './hive.ts';
 
 import * as ko from 'knockout';
@@ -36,12 +36,15 @@ export class Map {
     sliderOptions.initialStart = config.steps;
 
     $('#custom-map-controls').show();
+    $('#github-buttons').show();
     Foundation.reInit(['slider']);
 
     $('#beehive-control .slider').on('moved.zf.slider', (e) => this.changeSteps(e));
     $('#remove').on('click', () => this.removeActiveHive());
     $('#edit-hives').on('click', () => this.editHives());
-
+    $('#generate-ui-wrapper').on('open.zf.reveal', () => {
+      _.forEach($('input,select,textarea', '#generate-ui'), (e) => $('#generate-ui').foundation('validateInput', $(e)));
+    });
     let vm = new ViewModel({map: this});
     ko.applyBindings(vm, document.getElementsByTagName('body')[0]);
   }
