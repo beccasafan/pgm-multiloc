@@ -34,6 +34,18 @@ export class ViewModel {
         this.pogomapDirectory = ko.observable('');
 
         this.os = ko.observable(config.os);
+        this.os.subscribe((newValue) => {
+            this.invalidFields([]);
+
+            if (this.os() === 'windows') {
+                $('#pogomap-directory').removeAttr('data-abide-ignore');
+            }
+            else {
+                $('#pogomap-directory').attr('data-abide-ignore', '');
+            }
+
+            _.forEach($('input,select,textarea', '#generate-ui'), (e) => $('#generate-ui').foundation('validateInput', $(e)));
+        });
         this.accountsPerHive = ko.observable(config.workers);
         this.accountColumns = ko.observable(config.accountColumns);
         this.accountColumns.subscribe((newValue) => $('#generate-ui').foundation('validateInput', $('#accounts')));

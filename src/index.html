@@ -91,11 +91,11 @@
             <p class="helptext">Valid parameters: <span data-bind="if: os() === 'windows'">{pogomap-directory},</span> {index}, {location}, {steps}, {auth}</p>
               <legend>Command Templates:</legend>
 
-              <!-- ko if: os() === 'windows' -->
-              <label>PogoMap Directory:
-                <input type="text" name="pogomapDirectory" data-bind="textInput: pogomapDirectory" required />
-              </label>
-              <!-- /ko -->
+              <div data-bind="visible: os() === 'windows'">
+                <label>PogoMap Directory:
+                  <input id="pogomap-directory" type="text" name="pogomapDirectory" data-bind="textInput: pogomapDirectory" required />
+                </label>
+              </div>
 
               <label>Setup Command:
                 <input type="text" name="setup" data-bind="textInput: activeTemplates().setup.value" required />
