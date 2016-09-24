@@ -23,7 +23,7 @@ export class config {
   public static linuxTemplates: ICommandTemplate = {
     setup: '#!/usr/bin/env bash',
     server: 'nohup python runserver.py -os -l \'{location}\' &',
-    worker: 'nohup python runserver.py -ns -l \'{location}\' -st {steps} {auth-template}',
+    worker: 'nohup python runserver.py -ns -l \'{location}\' -st {steps} {auth-template} &',
     auth: '-u {username} -p \'{password}\'',
     delay: 'sleep 0.5;',
     filename: 'launch.sh'
