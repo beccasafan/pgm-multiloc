@@ -14,15 +14,16 @@ export class config {
   public static windowsTemplates: ICommandTemplate = {
     setup: 'taskkill /IM python.exe /F',
     server: 'Start "Server" /d {pogomap-directory} /MIN python.exe runserver.py -os -l "{location}"',
-    worker: 'Start "Worker{index}" /d {pogomap-directory} /MIN python.exe runserver.exe -ns -l "{location}" -st {steps} {auth}',
+    worker: 'Start "Worker{index}" /d {pogomap-directory} /MIN python.exe runserver.exe -ns -l "{location}" -st {steps} {auth-template}',
     auth: '-u {username} -p "{password}"',
     delay: 'ping 127.0.0.1 -n 6 > null',
     filename: 'launch.bat'
   };
+
   public static linuxTemplates: ICommandTemplate = {
     setup: '#!/usr/bin/env bash',
     server: 'nohup python runserver.py -os -l \'{location}\' &',
-    worker: 'nohup python runserver.py -ns -l \'{location}\' -st {steps} {auth}',
+    worker: 'nohup python runserver.py -ns -l \'{location}\' -st {steps} {auth-template}',
     auth: '-u {username} -p \'{password}\'',
     delay: 'sleep 0.5;',
     filename: 'launch.sh'

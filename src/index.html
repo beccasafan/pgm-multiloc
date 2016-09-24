@@ -78,6 +78,7 @@
             </label>
 
             <label>Columns:
+              <p class="helptext">The columns listed here will be the variables used in the {auth-template}.</p>
               <input id="accountColumns" type="text" name="accountColumns" data-bind="textInput: accountColumns" required />
             </label>
 
@@ -110,6 +111,7 @@
               </label>
 
               <label>Auth Template:
+                <p class="helptext">Use variable names from the Account Columns field.</p>
                 <input type="text" name="auth" data-bind="textInput: activeTemplates().auth.value" required />
               </label>
 

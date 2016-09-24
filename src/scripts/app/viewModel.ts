@@ -133,7 +133,7 @@ ${this.replaceVariables(templates.worker.value(), {
     index: i + 1,
     location: hives[i].getCenter().toString(), 
     steps: hives[i].steps,
-    auth: _.join(accountValues, ' ') 
+    'auth-template': _.join(accountValues, ' ') 
 })}
 ${templates.delay.value()}
             `;
