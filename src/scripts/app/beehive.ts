@@ -146,6 +146,9 @@ export class Beehive {
 
   public disableActive(): void {
     this.isActive = false;
+    if (this.isEditingHives) {
+      this.editHives();
+    }
     this.mapObject.set('fillOpacity', 0);
   }
 
