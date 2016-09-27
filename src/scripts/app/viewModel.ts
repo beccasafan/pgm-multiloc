@@ -150,9 +150,19 @@ ${templates.delay.value()}
 
     public downloadFile (): void {
         let script = this.generateScriptOutput(false);
+        this.downloadScript(script, this.activeTemplates().filename.value());
+    }
+
+    public coordsFile (): void {
+        let script = _.join(_.map(this.activeHives(), (h) => h.getCenter().toString()), '\n');
+
+        this.downloadScript(script, 'coords.txt');
+    }
+
+    public downloadScript(script: string, filename: string): void {
         let blob = new Blob([script], { type: 'text/plain' });
         let url = window.URL.createObjectURL(blob);
-        let a = $('<a>', { style: 'display: block;', download: this.activeTemplates().filename.value(), href: url }).text('DL');
+        let a = $('<a>', { style: 'display: none;', download: filename, href: url });
 
         a.on('click', () => {
             setTimeout(() => {

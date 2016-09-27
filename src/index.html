@@ -137,6 +137,7 @@
         </div>
         <div class="row text-center">
           <!-- ko if: !isValid()--><p class="callout alert">Please fix all validation errors.</p><!-- /ko -->
+          <button id="coords" class="button warning" data-bind="click: coordsFile">Download Coordinates</button>
           <button id="download" class="button success" data-bind="if: isValid, click: downloadFile">Download Script</button>
         </div>
       </div>
