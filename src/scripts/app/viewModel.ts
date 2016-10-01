@@ -143,7 +143,7 @@ ${templates.delay.value()}
     }
 
     private replaceVariables(text: string, variables: any): string {
-        _.forOwn(variables, (value, key) => text = text.replace(`{${key}}`, value));
+        _.forOwn(variables, (value, key) => text = text.replace(new RegExp(`{${key}}`, 'g'), value));
 
         return text;
     }
