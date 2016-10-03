@@ -50,7 +50,7 @@ export class Map {
   }
 
   public addBeehive(location: Location): void {
-    let beehive = new Beehive(<IBeehiveOptions>{ map: this, steps: config.steps, leaps: config.leaps, center: location });
+    let beehive = new Beehive(<IBeehiveOptions>{ map: this, steps: this.steps, leaps: config.leaps, center: location });
     this.beehives.push(beehive);
     $('#generate-trigger').show();
   }

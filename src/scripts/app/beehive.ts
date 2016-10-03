@@ -26,7 +26,7 @@ export class Beehive {
     this.options = options;
     this.hives = ko.observableArray([]);
     this.isEditingHives = false;
-    this.coveringRadius = Util.getBeehiveRadius(config.leaps, config.steps);
+    this.coveringRadius = Util.getBeehiveRadius(this.options.leaps, this.options.steps);
 
     this.activeHives = ko.computed(() => this.getActiveHives(), this, { deferEvaluation: true });
 
